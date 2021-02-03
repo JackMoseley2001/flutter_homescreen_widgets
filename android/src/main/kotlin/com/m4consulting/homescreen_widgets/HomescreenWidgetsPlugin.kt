@@ -31,7 +31,7 @@ class HomescreenWidgetsPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "update_widget") {
-      var className = call.argument<String>("className") ?: return result.error("-1", "No class name provided")
+      var className = call.argument<String>("className") ?: return result.error("-1", "No class name provided", IllegalArgumentException())
       var javaClass = Class.forName("${context.packageName}.${className}")
 
       var intent = Intent(context.applicationContext, javaClass)
