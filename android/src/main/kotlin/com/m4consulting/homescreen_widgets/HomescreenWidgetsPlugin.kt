@@ -24,7 +24,7 @@ class HomescreenWidgetsPlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var context: Context
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "homescreen_widgets")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "dev.jackmoseley.homescreen_widgets")
     channel.setMethodCallHandler(this)
     context = flutterPluginBinding.applicationContext
   }
@@ -46,6 +46,7 @@ class HomescreenWidgetsPlugin: FlutterPlugin, MethodCallHandler {
 
       intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
       context.sendBroadcast(intent)
+      result.success(true)
     }
     else {
       result.notImplemented()
