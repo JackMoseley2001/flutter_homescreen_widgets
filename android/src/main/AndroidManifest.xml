@@ -1,5 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.m4consulting.homescreen_widgets">
-    <uses-sdk
-        android:minSdkVersion="3" />
 </manifest>
