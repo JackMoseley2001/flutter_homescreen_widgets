@@ -16,18 +16,16 @@ class HomescreenWidgets {
   /// Android requires the class name for the App Widget to be specified (e.g MyAppWidgetClass)
   ///
   /// iOS you can either specify the 'kind' assigned for your widget, or specify 'all' (default) if you want to reload every widget for your application
-  static Future<bool> updateWidgets({String? android, String? iOS = 'all'}) {
+  static Future<void> updateWidgets({String? android, String? iOS = 'all'}) {
     if (Platform.isAndroid && android != null) {
-      return _channel.invokeMethod('update_widget', {'className': android})
-          as Future<bool>;
+      return _channel.invokeMethod('update_widget', {'className': android});
     } else if (Platform.isIOS && iOS != null) {
-      return _channel.invokeMethod('update_widget', {'kind': iOS})
-          as Future<bool>;
+      return _channel.invokeMethod('update_widget', {'kind': iOS});
     }
-    return Future.value(false);
+    return Future.value();
   }
 
-  static Future<bool> setData({
+  static Future<void> setData({
     required dynamic data,
     required String key,
     String? appGroup,
@@ -49,13 +47,10 @@ class HomescreenWidgets {
       return _channel.invokeMethod(
         'set_item',
         {'group': appGroup, 'data': encodedData, 'key': key},
-      ) as FutureOr<bool>;
+      );
     } else if (Platform.isAndroid) {
       final preferences = await SharedPreferences.getInstance();
       preferences.setString(key, encodedData);
-      return Future.value(true);
     }
-
-    return Future.value(false);
   }
 }
