@@ -17,6 +17,9 @@ public class SwiftHomescreenWidgetsPlugin: NSObject, FlutterPlugin {
       case "set_item":
         setUserDefaultItem(call: call, result: result)
         break
+      case "remove_item":
+        removeUserDefaultItem(call: call, result: result);
+        break;
       default:
         result(FlutterMethodNotImplemented)
     }
@@ -46,6 +49,22 @@ public class SwiftHomescreenWidgetsPlugin: NSObject, FlutterPlugin {
          let key = arguments["key"] as? String {
         if let defaults = UserDefaults.init(suiteName: appGroup) {
           defaults.set(data, forKey: key)
+          return result(true)
+        } else {
+          return result(FlutterError(code: "-2", message: "Failed to create shared user defaults", details: nil))
+        }
+      }
+    }
+
+    return result(FlutterError(code: "-1", message: "Provided arguments invalid", details: nil))
+  }
+
+  private func removeUserDefaultItem(call: FlutterMethodCall, result: @escaping FlutterResult) {
+    if let arguments = call.arguments as? [String: Any] {
+      if let appGroup = arguments["group"] as? String,
+         let key = arguments["key"] as? String {
+        if let defaults = UserDefaults.init(suiteName: appGroup) {
+          defaults.removeObject(forKey: key)
           return result(true)
         } else {
           return result(FlutterError(code: "-2", message: "Failed to create shared user defaults", details: nil))

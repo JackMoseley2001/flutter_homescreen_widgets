@@ -53,4 +53,19 @@ class HomescreenWidgets {
       preferences.setString(key, encodedData);
     }
   }
+
+  static Future<void> removeItem({
+    required String key,
+    String? appGroup,
+  }) async {
+    if (Platform.isIOS && appGroup != null) {
+      return _channel.invokeMethod(
+        'set_item',
+        {'group': appGroup, 'key': key},
+      );
+    } else if (Platform.isAndroid) {
+      final preferences = await SharedPreferences.getInstance();
+      preferences.remove(key);
+    }
+  }
 }
