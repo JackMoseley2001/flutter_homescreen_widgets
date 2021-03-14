@@ -60,7 +60,7 @@ class HomescreenWidgets {
   }) async {
     if (Platform.isIOS && appGroup != null) {
       return _channel.invokeMethod(
-        'set_item',
+        'remove_item',
         {'group': appGroup, 'key': key},
       );
     } else if (Platform.isAndroid) {
