@@ -4,7 +4,7 @@ import WidgetKit
 
 public class SwiftHomescreenWidgetsPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "homescreen_widgets", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "dev.jackmoseley.homescreen_widgets", binaryMessenger: registrar.messenger())
     let instance = SwiftHomescreenWidgetsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
